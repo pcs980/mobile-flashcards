@@ -9,10 +9,15 @@
   "dependencies": {
     "expo": "^32.0.0",
     "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-navigation": "^3.6.1"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
+  },
+  "repository": {
+    "type": "GitHub",
+    "url": "https://github.com/pcs980/mobile-flashcards"
   },
   "private": true
 }
