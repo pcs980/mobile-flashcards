@@ -2,18 +2,18 @@ import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {Constants} from 'expo';
 
-import {primary} from '../utils/colors';
+import {darkPrimary} from '../utils/colors';
 
 export default function Status() {
   return (
     <View style={{
-      backgroundColor: primary,
+      backgroundColor: darkPrimary,
       height: Constants.statusBarHeight
     }}>
       <StatusBar
         translucent
         barStyle='light-content'
-        backgroundColor={primary}/>
+        backgroundColor={darkPrimary}/>
     </View>
   )
 }
