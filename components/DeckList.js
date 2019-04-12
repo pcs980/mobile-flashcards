@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
+import DeckCard from './DeckCard';
 import {getDecks} from '../utils/api';
 import styles from '../utils/styles';
 import {secondary} from '../utils/colors';
@@ -15,8 +16,7 @@ class DeckList extends React.Component {
   componentDidMount() {
     getDecks()
       .then((result) => {
-        console.log('getDecks<', result, '>');
-        this.setState(() => ({decks: result}));
+        this.setState(() => ({decks: JSON.parse(result)}));
       });
   }
 
@@ -38,9 +38,11 @@ class DeckList extends React.Component {
     };
 
     return (
-      <View style={styles.container}>
+      <View style={styles.listContainer}>
         {
-          decks.map((deck) => <Text>{deck.title}</Text>)
+          Object.values(decks).map((deck) => (
+            <DeckCard key={deck.title} deck={deck}/>
+          ))
         }
       </View>
     );

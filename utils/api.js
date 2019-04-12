@@ -4,9 +4,6 @@ export const DECKS_STORAGE_KEY = 'MobileFlashcards:decks'
 
 export const getDecks = () => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY);
-    // .then((result) => {
-    //   console.log('storage get <', result, '>');
-    // });
 };
 
 export const getDeck = (deckTitle) => {

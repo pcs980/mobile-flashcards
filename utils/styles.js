@@ -10,6 +10,31 @@ export default StyleSheet.create({
     backgroundColor: white,
     margin: 10,
   },
+  listContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    backgroundColor: white,
+    margin: 10,
+  },
+  shadow: {
+    padding: 10,
+    borderRadius: 4,
+    marginBottom: 10,
+    shadowColor: 'rgba(0, 0, 0, 0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowRadius: 6,
+    shadowOpacity: 0.5,
+  },
+  subtitle: {
+    color: gray,
+    fontSize: 14,
+    textAlign: 'center',
+  },
   textInput: {
     color: black,
     height: 40,
