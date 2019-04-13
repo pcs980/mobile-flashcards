@@ -1,8 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {connect} from 'react-redux';
+import {AppLoading} from 'expo';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 import DeckCard from './DeckCard';
+import {storeAllDecks} from '../actions';
 import {getDecks} from '../utils/api';
 import styles from '../utils/styles';
 import {secondary} from '../utils/colors';
@@ -10,18 +13,32 @@ import {secondary} from '../utils/colors';
 class DeckList extends React.Component {
 
   state = {
-    decks: null,
+    ready: false,
   }
+
+  openDeck = (title) => {
+    console.log('opening ', title);
+    this.props.navigation.navigate('DeckDetail', {title});
+  };
 
   componentDidMount() {
     getDecks()
       .then((result) => {
-        this.setState(() => ({decks: JSON.parse(result)}));
-      });
+        const decks = JSON.parse(result);
+        return this.props.storeDecks(decks);
+      })
+      .then((state) => this.setState(() => ({ready: true})));
   }
 
   render() {
-    const {decks} = this.state;
+    const {ready} = this.state;
+    const {decks} = this.props;
+
+    if (ready === false) {
+      return (
+        <AppLoading/>
+      );
+    }
 
     if (decks === null) {
       return (
@@ -38,15 +55,26 @@ class DeckList extends React.Component {
     };
 
     return (
-      <View style={styles.listContainer}>
+      <ScrollView>
         {
           Object.values(decks).map((deck) => (
-            <DeckCard key={deck.title} deck={deck}/>
+            <DeckCard
+              key={deck.title}
+              onPress={this.openDeck}
+              deck={deck}/>
           ))
         }
-      </View>
+      </ScrollView>
     );
   }
 }
 
-export default DeckList;
+const mapStateToProps = (decks) => ({
+  decks,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  storeDecks: (decks) => dispatch(storeAllDecks(decks)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList);

@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {black, gray, white} from './colors';
+import {black, gray, lightGray, white} from './colors';
 
 export default StyleSheet.create({
   container: {
@@ -12,15 +12,14 @@ export default StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    backgroundColor: white,
-    margin: 10,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: lightGray,
   },
   shadow: {
-    padding: 10,
+    padding: 4,
     borderRadius: 4,
+    marginTop: 10,
     marginBottom: 10,
     shadowColor: 'rgba(0, 0, 0, 0.24)',
     shadowOffset: {

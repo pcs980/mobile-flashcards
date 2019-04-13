@@ -1,7 +1,9 @@
 import React from 'react';
 import {KeyboardAvoidingView, Text, TextInput, View} from 'react-native';
+import {connect} from 'react-redux';
 
 import TextButton from './TextButton';
+import {storeDeck} from '../actions';
 import {saveDeck} from '../utils/api';
 import styles from '../utils/styles';
 
@@ -17,7 +19,8 @@ class DeckNew extends React.Component {
   submit = () => {
     const {title} = this.state;
     saveDeck({title})
-      .then(() => this.openDeck(title))
+      .then(() => this.props.addDeck({title}))
+      .then(() => this.openDeck({title}))
       .catch((error) => {
         console.error('save deck error:', error);
       });
@@ -43,4 +46,10 @@ class DeckNew extends React.Component {
   }
 }
 
-export default DeckNew;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  addDeck: (deck) => dispatch(storeDeck(deck)),
+});
+
+export default connect()(DeckNew);

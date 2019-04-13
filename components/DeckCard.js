@@ -3,10 +3,14 @@ import {Text, View} from 'react-native';
 
 import styles from '../utils/styles';
 
-export default function DeckCard({deck}) {
+export default function DeckCard({onPress, deck}) {
   return (
     <View style={[styles.container, styles.shadow]}>
-      <Text style={styles.title1}>{deck.title}</Text>
+      <Text
+        onPress={() => onPress(deck.title)}
+        style={styles.title1}>
+        {deck.title}
+      </Text>
       <Text style={styles.subtitle}>
         {
           deck.questions
