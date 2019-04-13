@@ -1,8 +1,10 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Alert, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 
 import TextButton from './TextButton';
+import {removeDeck} from '../actions';
+import {_deleteDeck} from '../utils/api';
 import {formatDate} from '../utils';
 import styles from '../utils/styles';
 
@@ -22,6 +24,35 @@ class DeckDetail extends React.Component {
 
   startQuiz = () => {
     this.props.navigation.navigate('Quiz', {deckId: this.props.deck.title});
+  }
+
+  confirmDeletion = () => {
+    Alert.alert(
+      'Remove deck',
+      'Are you sure you want to permanently remove this deck?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: () => this.delete()
+        },
+      ]
+    );
+  }
+
+  delete = () => {
+    const {deck, deleteDeck, goHome} = this.props;
+
+    _deleteDeck(deck.title)
+      .then(() => deleteDeck(deck.title))
+      .then(() => goHome());
+  };
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.deck !== undefined;
   }
 
   render() {
@@ -64,6 +95,11 @@ class DeckDetail extends React.Component {
             </TextButton>
           )
         }
+        <TextButton
+          danger
+          onPress={this.confirmDeletion}>
+          Remove Deck
+        </TextButton>
       </View>
     );
   }
@@ -73,8 +109,13 @@ const mapStateToProps = (state, {navigation}) => {
   const {title} = navigation.state.params;
 
   return {
-    deck: state[title]
+    deck: state[title],
+    goHome: () => navigation.navigate('Home'),
   };
 };
 
-export default connect(mapStateToProps)(DeckDetail);
+const mapDispatchToProps = (dispatch) => ({
+  deleteDeck: (deckId) => dispatch(removeDeck(deckId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckDetail);

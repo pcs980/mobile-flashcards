@@ -22,13 +22,21 @@ const decks = (state = {}, action) => {
     }
     case UPDATE_DECK: {
       const {deck} = action;
-      console.log('update last try', deck);
 
       return {
         ...state,
         [deck.title]: {
           ...deck
         }
+      };
+    }
+    case REMOVE_DECK: {
+      const decks = state;
+      decks[action.deckId] = undefined;
+      delete decks[action.deckId];
+
+      return {
+        ...decks
       };
     }
     case ADD_CARD: {
