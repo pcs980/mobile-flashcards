@@ -1,8 +1,9 @@
 import React from 'react';
-import {ActivityIndicator, KeyboardAvoidingView, Text, TextInput} from 'react-native';
+import {KeyboardAvoidingView, Text, TextInput} from 'react-native';
 import {connect} from 'react-redux';
 
 import TextButton from './TextButton';
+import Loading from './Loading';
 import {storeCard} from '../actions';
 import {addCardToDeck} from '../utils/api';
 import styles from '../utils/styles';
@@ -11,8 +12,8 @@ class CardNew extends React.Component {
 
   state = {
     saving: false,
-    question: 'Uma nova pergunta',
-    answer: 'Outra chance de responder',
+    question: '',
+    answer: '',
     questionError: false,
     answerError: false,
   }
@@ -87,13 +88,12 @@ class CardNew extends React.Component {
           )
         }
 
-        <TextButton onPress={this.submit} style={{marginTop: 60}} disabled={this.state.saving}>
-          Submit
-        </TextButton>
         {
-          this.state.saving === true && (
-            <ActivityIndicator/>
-          )
+          this.state.saving === false
+            ? <TextButton onPress={this.submit} style={{marginTop: 60}}>
+                Submit
+              </TextButton>
+            : <Loading/>
         }
       </KeyboardAvoidingView>
     );

@@ -25,14 +25,17 @@ class DeckDetail extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title3}>
+        <Text style={[styles.title2, {fontWeight: 'bold', marginTop: 40}]}>
+          This deck have:
+        </Text>
+        <Text>
           {
             cardCount > 0
               ? deck.questions.length + (deck.questions.length === 1 ? ' card' : ' cards')
-              : 'No cards'
+              : 'no cards'
           }
         </Text>
-        <Text style={[styles.title3, {fontWeight: 'bold', marginTop: 40}]}>
+        <Text style={[styles.title2, {fontWeight: 'bold', marginTop: 40}]}>
           Last try:
         </Text>
         <Text>
@@ -43,6 +46,7 @@ class DeckDetail extends React.Component {
           }
         </Text>
         <TextButton
+          outline
           onPress={this.createCard}
           style={{marginTop: 100}}>
           Add Card
