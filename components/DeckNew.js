@@ -56,7 +56,7 @@ class DeckNew extends React.Component {
         <Text style={styles.title2}>What is the title of your new deck?</Text>
         <TextInput
           placeholder="Type your new deck's title"
-          maxLength={40}
+          maxLength={30}
           value={title}
           onSubmitEditing={this.submit}
           onChangeText={(title) => this.setState({title})}

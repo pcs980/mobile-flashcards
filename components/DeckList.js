@@ -39,7 +39,7 @@ class DeckList extends React.Component {
       );
     }
 
-    if (decks === null) {
+    if (!Object.keys(decks).length) {
       return (
         <View style={styles.container}>
           <MaterialCommunityIcons name='cards-outline' size={72} color={secondary}/>
@@ -63,6 +63,7 @@ class DeckList extends React.Component {
               deck={deck}/>
           ))
         }
+        <View style={{height: 60}}/>
       </ScrollView>
     );
   }
