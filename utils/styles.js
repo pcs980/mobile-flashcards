@@ -18,24 +18,22 @@ export default StyleSheet.create({
     margin: 10,
     padding: 10,
   },
-  listContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: lightGray,
-  },
   shadow: {
-    padding: 4,
-    borderRadius: 4,
-    marginTop: 10,
-    marginBottom: 10,
-    shadowColor: 'rgba(0, 0, 0, 0.24)',
+    backgroundColor: white,
+    elevation: 5,
+    borderRadius: 3,
+    padding: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 17,
+    justifyContent: 'center',
+    shadowRadius: 3,
+    shadowOpacity: 0.4,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 3
     },
-    shadowRadius: 6,
-    shadowOpacity: 0.5,
+    shadowColor: black
   },
   subtitle: {
     color: gray,
