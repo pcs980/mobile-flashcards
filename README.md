@@ -41,6 +41,6 @@ You can run it in a physical device by two ways:
 
 Each way have it's own qr code. Open [Expo Developer Tools](http://localhost:19002), choose your connection in the left panel then use the Expo app to capture the qr code.
 
-### Features
+### Platform
 
-Once open you can freely create decks and flashcards.
+This project has been tested on Android device.

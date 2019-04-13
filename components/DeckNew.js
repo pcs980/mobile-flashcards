@@ -71,7 +71,7 @@ class DeckNew extends React.Component {
         {
           saving === false
             ? <TextButton onPress={this.submit}>
-                Submit
+                Create Deck
               </TextButton>
             : <Loading/>
         }
