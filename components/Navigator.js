@@ -1,8 +1,9 @@
 import React from 'react';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 
-import Tabs from './Tabs';
+import CardNew from './CardNew';
 import DeckDetail from './DeckDetail';
+import Tabs from './Tabs';
 import {primary, white} from '../utils/colors';
 
 const Navigator = createAppContainer(createStackNavigator({
@@ -15,6 +16,15 @@ const Navigator = createAppContainer(createStackNavigator({
   },
   DeckDetail: {
     screen: DeckDetail,
+    navigationOptions: ({navigation}) => ({
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primary,
+      }
+    }),
+  },
+  CardNew: {
+    screen: CardNew,
     navigationOptions: ({navigation}) => ({
       headerTintColor: white,
       headerStyle: {

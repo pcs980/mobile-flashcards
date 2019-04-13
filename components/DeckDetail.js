@@ -15,6 +15,10 @@ class DeckDetail extends React.Component {
     };
   }
 
+  createCard = () => {
+    this.props.navigation.navigate('CardNew', {deckId: this.props.deck.title});
+  };
+
   componentDidMount() {
 
   }
@@ -42,7 +46,9 @@ class DeckDetail extends React.Component {
               : 'Not answered yet'
           }
         </Text>
-        <TextButton style={{marginTop: 100}}>
+        <TextButton
+          onPress={this.createCard}
+          style={{marginTop: 100}}>
           Add Card
         </TextButton>
         {

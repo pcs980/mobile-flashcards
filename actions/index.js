@@ -25,7 +25,7 @@ export const removeDeck = (deckId) => (
   }
 );
 
-export const addCard = (deckId, card) => (
+export const storeCard = (deckId, card) => (
   {
     type: ADD_CARD,
     deckId,
