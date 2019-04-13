@@ -18,6 +18,17 @@ const decks = (state = {}, action) => {
         ...state,
         [action.deck.title]: action.deck
       };
+    case ADD_CARD:
+      const {deckId, card} = action;
+      const deck = state[deckId];
+
+      deck.questions.push(card);
+      return {
+        ...state,
+        [deckId]: {
+          ...deck,
+        }
+      };
     default:
       return state;
   }

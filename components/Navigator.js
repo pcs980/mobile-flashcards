@@ -9,7 +9,6 @@ import {primary, white} from '../utils/colors';
 const Navigator = createAppContainer(createStackNavigator({
   Home: {
     screen: Tabs,
-    path: '/',
     navigationOptions: {
       header: null
     },
@@ -26,6 +25,7 @@ const Navigator = createAppContainer(createStackNavigator({
   CardNew: {
     screen: CardNew,
     navigationOptions: ({navigation}) => ({
+      title: 'Add Card',
       headerTintColor: white,
       headerStyle: {
         backgroundColor: primary,

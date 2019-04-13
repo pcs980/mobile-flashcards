@@ -6,23 +6,29 @@ export const getDecks = () => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY);
 };
 
-export const getDeck = (deckTitle) => {
+export const getDeck = (deckId) => {
 
 };
 
 export const saveDeck = (deck) => {
+  AsyncStorage.removeItem(DECKS_STORAGE_KEY);
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({[deck.title]: deck}));
 };
 
-export const removeDeck = (deckTitle) => {
+export const removeDeck = (deckId) => {
 
 };
 
-export const addCardToDeck = (card, deckTitle) => {
+export const addCardToDeck = (deckId, card) => {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    .then((result) => {
+      const decks = JSON.parse(result);
+      decks[deckId].questions.push(card);
+      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
+    });
+  };
 
-};
-
-export const removeCardFromDeck = (card, deckTitle) => {
+export const removeCardFromDeck = (deckId, card) => {
 
 };
 

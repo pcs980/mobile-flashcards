@@ -1,7 +1,6 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from 'react-redux';
-import {AppLoading} from 'expo';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 
 import DeckCard from './DeckCard';
@@ -35,7 +34,7 @@ class DeckList extends React.Component {
 
     if (ready === false) {
       return (
-        <AppLoading/>
+        <ActivityIndicator/>
       );
     }
 

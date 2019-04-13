@@ -18,7 +18,7 @@ class DeckNew extends React.Component {
 
   submit = () => {
     const {title} = this.state;
-    saveDeck({title})
+    saveDeck({title, questions: []})
       .then(() => this.props.addDeck({title}))
       .then(() => this.openDeck(title))
       .catch((error) => {

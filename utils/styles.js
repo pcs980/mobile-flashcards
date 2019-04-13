@@ -34,6 +34,11 @@ export default StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
   },
+  textError: {
+    color: 'red',
+    marginTop: 5,
+    marginBottom: 10,
+  },
   textInput: {
     color: black,
     height: 40,
@@ -48,16 +53,19 @@ export default StyleSheet.create({
   title1: {
     color: black,
     fontSize: 32,
+    marginTop: 10,
     textAlign: 'center',
   },
   title2: {
     color: black,
     fontSize: 22,
+    marginTop: 10,
     textAlign: 'center',
   },
   title3: {
     color: black,
     fontSize: 16,
+    marginTop: 10,
     textAlign: 'center',
   },
 });

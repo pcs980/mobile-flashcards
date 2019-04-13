@@ -19,20 +19,16 @@ class DeckDetail extends React.Component {
     this.props.navigation.navigate('CardNew', {deckId: this.props.deck.title});
   };
 
-  componentDidMount() {
-
-  }
-
   render() {
     const {deck} = this.props;
     const cardCount = deck.questions ? deck.questions.length : 0;
 
     return (
       <View style={styles.container}>
-        <Text>
+        <Text style={styles.title3}>
           {
             cardCount > 0
-              ? deck.questions.length + ' cards'
+              ? deck.questions.length + (deck.questions.length === 1 ? ' card' : ' cards')
               : 'No cards'
           }
         </Text>
