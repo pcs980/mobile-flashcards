@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import TextButton from './TextButton';
 import Loading from './Loading';
 import {storeCard} from '../actions';
-import {addCardToDeck} from '../utils/api';
+import {_addCardToDeck} from '../utils/api';
 import styles from '../utils/styles';
 
 class CardNew extends React.Component {
@@ -34,7 +34,7 @@ class CardNew extends React.Component {
     } else {
       this.setState({saving: true}, () => {
         console.log({card});
-        addCardToDeck(deckId, card)
+        _addCardToDeck(deckId, card)
           .then(() => this.props.storeCard(deckId, card))
           .then(() => this.props.goBack())
           .catch((error) => {

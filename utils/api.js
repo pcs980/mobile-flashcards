@@ -2,29 +2,35 @@ import {AsyncStorage} from 'react-native';
 
 export const DECKS_STORAGE_KEY = 'MobileFlashcards:decks'
 
-export const getDecks = () => {
+export const _getDecks = () => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY);
 };
 
-export const saveDeck = (deck) => {
+export const _saveDeck = (deck) => {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({[deck.title]: deck}));
 };
 
-export const removeDeck = (deckId) => {
-
+export const _deleteDeck = (deckId) => {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    .then((result) => {
+      const decks = JSON.parse(result);
+      decks[deckId] = undefined;
+      delete decks[deckId];
+      setItem(decks);
+    });
 };
 
-export const addCardToDeck = (deckId, card) => {
+export const _addCardToDeck = (deckId, card) => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((result) => {
       const decks = JSON.parse(result);
       decks[deckId].questions.push(card);
-      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
+      setItem(decks);
     });
-  };
+};
 
-export const removeCardFromDeck = (deckId, card) => {
-
+const setItem = (decks) => {
+  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
 };
 
 /*

@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import Loading from './Loading';
 import TextButton from './TextButton';
 import {storeDeck} from '../actions';
-import {saveDeck} from '../utils/api';
+import {_saveDeck} from '../utils/api';
 import styles from '../utils/styles';
 
 class DeckNew extends React.Component {
@@ -33,7 +33,7 @@ class DeckNew extends React.Component {
       this.setState(() => ({titleError}));
     } else {
       this.setState({saving: true}, () => {
-        saveDeck(deck)
+        _saveDeck(deck)
           .then(() => this.props.addDeck(deck))
           .then(() => {
             this.setState({title: '', saving: false, titleError: false});

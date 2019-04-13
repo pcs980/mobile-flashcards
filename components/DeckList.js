@@ -6,7 +6,7 @@ import {MaterialCommunityIcons} from '@expo/vector-icons';
 import DeckCard from './DeckCard';
 import Loading from './Loading';
 import {storeAllDecks} from '../actions';
-import {getDecks} from '../utils/api';
+import {_getDecks} from '../utils/api';
 import styles from '../utils/styles';
 import {secondary} from '../utils/colors';
 
@@ -21,7 +21,7 @@ class DeckList extends React.Component {
   };
 
   componentDidMount() {
-    getDecks()
+    _getDecks()
       .then((result) => {
         const decks = JSON.parse(result);
         return this.props.storeDecks(decks);
