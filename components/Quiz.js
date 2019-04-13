@@ -5,7 +5,10 @@ import {FontAwesome} from '@expo/vector-icons';
 import * as Progress from 'react-native-progress';
 
 import TextButton from './TextButton';
-import {saveDeck} from '../utils/api';
+import QuizAnswer from './QuizAnswer';
+import QuizQuestion from './QuizQuestion';
+import QuizSummary from './QuizSummary';
+import {_saveDeck} from '../utils/api';
 import {updateDeck} from '../actions';
 import {lightSecondary} from '../utils/colors';
 import styles from '../utils/styles';
@@ -34,7 +37,7 @@ class Quiz extends React.Component {
       }), () => {
         deck.score = ((this.state.correct / deck.questions.length) * 100).toFixed(1) + '%';
         deck.timestamp = Date.now();
-        saveDeck(deck)
+        _saveDeck(deck)
           .then(() => this.props.changeDeck(deck))
           .catch((error) => console.error('Error updating deck', error));
       });
@@ -54,28 +57,26 @@ class Quiz extends React.Component {
       show: 'question',
       position: 0,
       correct: 0,
-      incorret: 0,
+      incorrect: 0,
     })
   };
 
+  stopQuiz = () => {
+    this.props.goBack();
+  }
+
   render() {
-    const {position, correct, incorrect} = this.state;
+    const {position, correct, incorrect, show} = this.state;
     const {deck} = this.props;
 
-    if (this.state.show === 'summary') {
+    if (show === 'summary') {
       return (
-        <View style={styles.containerTop}>
-          <FontAwesome name='flag-checkered' size={32}/>
-          <Text style={styles.title2}>Quiz finished!</Text>
-          <Text style={styles.title3}>Here's your score</Text>
-          <Text style={[styles.title1, styles.shadow, {margin: 40}]}>{((correct / deck.questions.length) * 100).toFixed(1)}%</Text>
-          <Text style={styles.subtitle}>{correct} correct answers.</Text>
-          <Text style={styles.subtitle}>{incorrect} incorrect answers.</Text>
-          <TextButton
-            onPress={this.restartQuiz}>
-            Try again
-          </TextButton>
-        </View>
+        <QuizSummary
+          score={((correct / deck.questions.length) * 100).toFixed(1)}
+          correctCount={correct}
+          incorrectCount={incorrect}
+          restartQuiz={this.restartQuiz}
+          stopQuiz={this.stopQuiz}/>
       );
     }
 
@@ -89,35 +90,15 @@ class Quiz extends React.Component {
             width={null}/>
         </View>
         {
-          this.state.show === 'question'
-            ? <View style={styles.containerTop}>
-                <Text style={styles.textError}>Question</Text>
-                <Text style={styles.title1}>
-                  {deck.questions[position].question}
-                </Text>
-                <TextButton
-                  style={{marginTop: 60}}
-                  onPress={this.showAnswer}>
-                  Check answer
-                </TextButton>
-              </View>
-            : <View style={styles.containerTop}>
-                <Text style={styles.textError}>Answer</Text>
-                <Text style={styles.title1}>
-                  {deck.questions[position].answer}
-                </Text>
-                <TextButton
-                  success
-                  style={{marginTop: 60}}
-                  onPress={() => this.countAnswer(true)}>
-                  Correct ({correct})
-                </TextButton>
-                <TextButton
-                  danger
-                  onPress={() => this.countAnswer(false)}>
-                  Incorrect ({incorrect})
-                </TextButton>
-              </View>
+          show === 'question'
+            ? <QuizQuestion
+                deck={deck}
+                position={position}
+                showAnswer={this.showAnswer}/>
+            : <QuizAnswer
+                position={position}
+                deck={deck}
+                countAnswer={this.countAnswer}/>
         }
 
       </View>
@@ -126,7 +107,8 @@ class Quiz extends React.Component {
 }
 
 const mapStateToProps = (state, {navigation}) => ({
-  deck: state[navigation.state.params.deckId]
+  deck: state[navigation.state.params.deckId],
+  goBack: () => navigation.goBack(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
