@@ -20,7 +20,7 @@ class DeckNew extends React.Component {
     const {title} = this.state;
     saveDeck({title})
       .then(() => this.props.addDeck({title}))
-      .then(() => this.openDeck({title}))
+      .then(() => this.openDeck(title))
       .catch((error) => {
         console.error('save deck error:', error);
       });
@@ -52,4 +52,4 @@ const mapDispatchToProps = (dispatch) => ({
   addDeck: (deck) => dispatch(storeDeck(deck)),
 });
 
-export default connect()(DeckNew);
+export default connect(null, mapDispatchToProps)(DeckNew);

@@ -17,7 +17,6 @@ class DeckList extends React.Component {
   }
 
   openDeck = (title) => {
-    console.log('opening ', title);
     this.props.navigation.navigate('DeckDetail', {title});
   };
 

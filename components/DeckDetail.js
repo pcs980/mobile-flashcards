@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View} from 'react-native';
+import {connect} from 'react-redux';
 
 import TextButton from './TextButton';
 import styles from '../utils/styles';
@@ -19,13 +20,49 @@ class DeckDetail extends React.Component {
   }
 
   render() {
+    const {deck} = this.props;
+    const cardCount = deck.questions ? deck.questions.length : 0;
 
     return (
       <View style={styles.container}>
-        <Text>Deck detail</Text>
+        <Text>
+          {
+            cardCount > 0
+              ? deck.questions.length + ' cards'
+              : 'No cards'
+          }
+        </Text>
+        <Text style={[styles.title3, {fontWeight: 'bold', marginTop: 40}]}>
+          Last try:
+        </Text>
+        <Text>
+          {
+            deck.lastQuiz
+              ? deck.lastQuiz
+              : 'Not answered yet'
+          }
+        </Text>
+        <TextButton style={{marginTop: 100}}>
+          Add Card
+        </TextButton>
+        {
+          cardCount > 0 && (
+            <TextButton>
+              Start Quiz
+            </TextButton>
+          )
+        }
       </View>
     );
   }
 }
 
-export default DeckDetail;
+const mapStateToProps = (state, {navigation}) => {
+  const {title} = navigation.state.params;
+
+  return {
+    deck: state[title]
+  };
+};
+
+export default connect(mapStateToProps)(DeckDetail);
