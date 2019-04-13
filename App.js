@@ -6,10 +6,14 @@ import {Text, View} from 'react-native';
 import Navigator from './components/Navigator';
 import Status from './components/Status';
 import reducer from './reducers';
+import {setLocalNotification} from './utils/notification';
 
 const store = createStore(reducer);
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
 
   render() {
     return (

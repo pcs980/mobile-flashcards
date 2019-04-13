@@ -8,8 +8,9 @@ import TextButton from './TextButton';
 import QuizAnswer from './QuizAnswer';
 import QuizQuestion from './QuizQuestion';
 import QuizSummary from './QuizSummary';
-import {_saveDeck} from '../utils/api';
 import {updateDeck} from '../actions';
+import {_saveDeck} from '../utils/api';
+import {clearLocalNotifications, setLocalNotification} from '../utils/notification';
 import {lightSecondary} from '../utils/colors';
 import styles from '../utils/styles';
 
@@ -39,6 +40,7 @@ class Quiz extends React.Component {
         deck.timestamp = Date.now();
         _saveDeck(deck)
           .then(() => this.props.changeDeck(deck))
+          .then(() => clearLocalNotifications().then(setLocalNotification))
           .catch((error) => console.error('Error updating deck', error));
       });
     } else {
