@@ -4,7 +4,15 @@ import {createAppContainer, createStackNavigator} from 'react-navigation';
 import CardNew from './CardNew';
 import DeckDetail from './DeckDetail';
 import Tabs from './Tabs';
+import Quiz from './Quiz';
 import {primary, white} from '../utils/colors';
+
+const navigationOptions = {
+  headerTintColor: white,
+  headerStyle: {
+    backgroundColor: primary
+  }
+};
 
 const Navigator = createAppContainer(createStackNavigator({
   Home: {
@@ -13,24 +21,25 @@ const Navigator = createAppContainer(createStackNavigator({
       header: null
     },
   },
-  DeckDetail: {
-    screen: DeckDetail,
-    navigationOptions: ({navigation}) => ({
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primary,
-      }
-    }),
-  },
   CardNew: {
     screen: CardNew,
     navigationOptions: ({navigation}) => ({
       title: 'Add Card',
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: primary,
-      }
+      ...navigationOptions,
     }),
+  },
+  DeckDetail: {
+    screen: DeckDetail,
+    navigationOptions: ({navigation}) => ({
+      ...navigationOptions,
+    }),
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: ({navigation}) => ({
+      title: 'Quiz',
+      ...navigationOptions,
+    })
   }
 }));
 

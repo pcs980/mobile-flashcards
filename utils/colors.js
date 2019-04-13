@@ -7,3 +7,5 @@ export const black = '#212121';
 export const gray = '#757575';
 export const lightGray = '#BDBDBD';
 export const white = '#FFFFFF';
+export const dangerColor = '#C62828';
+export const successColor = '#2E7D32';

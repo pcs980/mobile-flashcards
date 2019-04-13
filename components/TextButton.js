@@ -1,18 +1,31 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 
-import {secondary, white} from '../utils/colors';
+import {dangerColor, secondary, successColor, white} from '../utils/colors';
 
-export default function TextButton ({children, onPress, outline, style = {}}) {
+export default function TextButton ({children, onPress, outline = false, danger = false, success = false, style = {}}) {
+  const colors = {};
+  if (outline === true) {
+    colors.borderWidth = 2,
+    colors.borderColor = secondary
+  }
+
+  colors.backgroundColor = outline === true ? white : secondary;
+  if (danger === true) {
+    colors.backgroundColor = dangerColor;
+  }
+  if (success === true) {
+    colors.backgroundColor = successColor;
+  }
+
   return (
     <TouchableOpacity
       style={[{
-          backgroundColor: outline ? white : secondary, margin: 5,
+          ...colors,
+          margin: 5,
           padding: 10,
           width: 120,
           borderRadius: 3,
-          borderWidth: 2,
-          borderColor: secondary
         }, style]}
       onPress={onPress}>
       <Text style={{textAlign: 'center', color: outline ? secondary : white}}>

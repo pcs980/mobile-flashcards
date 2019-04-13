@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {black, gray, lightGray, white} from './colors';
+import {black, dangerColor, gray, lightGray, successColor, white} from './colors';
 
 export default StyleSheet.create({
   container: {
@@ -9,6 +9,14 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: white,
     margin: 10,
+  },
+  containerTop: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: white,
+    margin: 10,
+    padding: 10,
   },
   listContainer: {
     flex: 1,
@@ -35,7 +43,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   textError: {
-    color: 'red',
+    color: dangerColor,
     marginTop: 5,
     marginBottom: 10,
   },

@@ -19,6 +19,10 @@ class DeckDetail extends React.Component {
     this.props.navigation.navigate('CardNew', {deckId: this.props.deck.title});
   };
 
+  startQuiz = () => {
+    this.props.navigation.navigate('Quiz', {deckId: this.props.deck.title});
+  }
+
   render() {
     const {deck} = this.props;
     const cardCount = deck.questions ? deck.questions.length : 0;
@@ -48,12 +52,13 @@ class DeckDetail extends React.Component {
         <TextButton
           outline
           onPress={this.createCard}
-          style={{marginTop: 100}}>
+          style={{marginTop: 80}}>
           Add Card
         </TextButton>
         {
           cardCount > 0 && (
-            <TextButton>
+            <TextButton
+              onPress={this.startQuiz}>
               Start Quiz
             </TextButton>
           )
