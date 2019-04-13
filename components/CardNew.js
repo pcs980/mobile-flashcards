@@ -27,8 +27,8 @@ class CardNew extends React.Component {
       answer: this.state.answer.trim()
     };
 
-    const questionError = card.question.length < 10;
-    const answerError = card.answer.length < 10;
+    const questionError = card.question.length === 0;
+    const answerError = card.answer.length === 0;
     if (questionError === true || answerError === true) {
       this.setState(() => ({questionError, answerError}));
       return;
@@ -66,7 +66,7 @@ class CardNew extends React.Component {
         {
           questionError === true && (
             <Text style={styles.textError}>
-              Please, inform a question with at least 10 characters.
+              Please, inform a question.
             </Text>
           )
         }
@@ -83,7 +83,7 @@ class CardNew extends React.Component {
         {
           answerError === true && (
             <Text style={styles.textError}>
-              Please, inform an answer with at least 10 characters.
+              Please, inform the correct answer.
             </Text>
           )
         }

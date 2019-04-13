@@ -30,7 +30,7 @@ class DeckDetail extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={[styles.title2, {fontWeight: 'bold', marginTop: 40}]}>
-          This deck have:
+          This deck has:
         </Text>
         <Text>
           {

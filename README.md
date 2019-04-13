@@ -33,11 +33,11 @@ After clone and install you can run the application:
 yarn start
 ```
 
-After a few seconds you will see some instructions to opening the application with live reloading using the [Expo app](https://expo.io/) available in [iOS App Store](https://itunes.apple.com/app/apple-store/id982107779) and [Google Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www).
+After a few seconds you will see some instructions to open the application with live reloading using the [Expo app](https://expo.io/) available in [iOS App Store](https://itunes.apple.com/app/apple-store/id982107779) and [Google Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www).
 
 You can run it in a physical device by two ways:
-- Wifi: both computer running the application and device must be using the same network.
-- USB: connect the device to the computer using a USB cable and run as `localhost`.
+- Lan: both computer running the application and device must be using the same wifi network.
+- Local: connect a device to the computer using a USB cable and run as `localhost`.
 
 Each way have it's own qr code. Open [Expo Developer Tools](http://localhost:19002), choose your connection in the left panel then use the Expo app to capture the qr code.
 
