@@ -5,17 +5,12 @@ import {FontAwesome} from '@expo/vector-icons';
 import * as Progress from 'react-native-progress';
 
 import TextButton from './TextButton';
+import {saveDeck} from '../utils/api';
+import {updateDeck} from '../actions';
 import {lightSecondary} from '../utils/colors';
 import styles from '../utils/styles';
 
 class Quiz extends React.Component {
-
-  // state = {
-  //   position: 0,
-  //   correct: 4,
-  //   incorrect: 0,
-  //   show: 'summary',
-  // }
 
   state = {
     position: 0,
@@ -28,17 +23,25 @@ class Quiz extends React.Component {
     this.setState({show: 'answer'});
   };
 
-  countAnswer = (correct) => {
-    if ((this.state.position + 1) === this.props.deck.questions.length) {
+  countAnswer = (isCorrect) => {
+    const {deck} = this.props;
+
+    if ((this.state.position + 1) === deck.questions.length) {
       this.setState((prev) => ({
-        correct: prev.correct + (correct === true ? 1 : 0),
-        incorrect: prev.incorrect + (correct === true ? 0 : 1),
+        correct: prev.correct + (isCorrect === true ? 1 : 0),
+        incorrect: prev.incorrect + (isCorrect === true ? 0 : 1),
         show: 'summary',
-      }));
+      }), () => {
+        deck.score = ((this.state.correct / deck.questions.length) * 100).toFixed(1) + '%';
+        deck.timestamp = Date.now();
+        saveDeck(deck)
+          .then(() => this.props.changeDeck(deck))
+          .catch((error) => console.error('Error updating deck', error));
+      });
     } else {
       this.setState((prev) => ({
-        correct: prev.correct + (correct === true ? 1 : 0),
-        incorrect: prev.incorrect + (correct === true ? 0 : 1),
+        correct: prev.correct + (isCorrect === true ? 1 : 0),
+        incorrect: prev.incorrect + (isCorrect === true ? 0 : 1),
         position: prev.position + 1,
         show: 'question'
       }));
@@ -127,7 +130,7 @@ const mapStateToProps = (state, {navigation}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+  changeDeck: (deck) => dispatch(updateDeck(deck))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

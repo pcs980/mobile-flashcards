@@ -6,10 +6,6 @@ export const getDecks = () => {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY);
 };
 
-export const getDeck = (deckId) => {
-
-};
-
 export const saveDeck = (deck) => {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({[deck.title]: deck}));
 };

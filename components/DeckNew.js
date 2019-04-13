@@ -2,6 +2,7 @@ import React from 'react';
 import {KeyboardAvoidingView, Text, TextInput, View} from 'react-native';
 import {connect} from 'react-redux';
 
+import Loading from './Loading';
 import TextButton from './TextButton';
 import {storeDeck} from '../actions';
 import {saveDeck} from '../utils/api';
@@ -9,7 +10,9 @@ import styles from '../utils/styles';
 
 class DeckNew extends React.Component {
   state = {
-    title: ''
+    saving: false,
+    title: '',
+    titleError: false,
   }
 
   openDeck = (title) => {
@@ -17,33 +20,61 @@ class DeckNew extends React.Component {
   };
 
   submit = () => {
+    if (this.state.saving === true) return;
+
     const deck = {
-      title: this.state.title,
+      title: this.state.title.trim(),
       questions: [],
     }
-    saveDeck(deck)
-      .then(() => this.props.addDeck(deck))
-      .then(() => this.openDeck(deck.title))
-      .catch((error) => {
-        console.error('save deck error:', error);
-      });
+
+    const titleError = deck.title.length === 0;
+
+    if (titleError === true) {
+      this.setState(() => ({titleError}));
+    } else {
+      this.setState({saving: true}, () => {
+        saveDeck(deck)
+          .then(() => this.props.addDeck(deck))
+          .then(() => {
+            this.setState({title: '', saving: false, titleError: false});
+            this.openDeck(deck.title)
+          })
+          .catch((error) => {
+            console.error('save deck error:', error);
+              this.setState({saving: false});
+          });
+        });
+    }
+
   };
 
   render() {
+    const {title, titleError, saving} = this.state;
+
     return (
       <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <Text style={styles.title2}>What is the title of your new deck?</Text>
         <TextInput
           placeholder="Type your new deck's title"
           maxLength={40}
-          value={this.state.title}
+          value={title}
           onSubmitEditing={this.submit}
           onChangeText={(title) => this.setState({title})}
           style={styles.textInput}/>
-        <TextButton onPress={this.submit}>
-          Submit
-        </TextButton>
-        <View style={{height: 40}}/>
+        {
+          titleError === true && (
+            <Text style={styles.textError}>
+              Please, inform a title.
+            </Text>
+          )
+        }
+        {
+          saving === false
+            ? <TextButton onPress={this.submit}>
+                Submit
+              </TextButton>
+            : <Loading/>
+        }
       </KeyboardAvoidingView>
     );
   }

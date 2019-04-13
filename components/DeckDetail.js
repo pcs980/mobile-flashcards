@@ -3,6 +3,7 @@ import {Text, View} from 'react-native';
 import {connect} from 'react-redux';
 
 import TextButton from './TextButton';
+import {formatDate} from '../utils';
 import styles from '../utils/styles';
 
 class DeckDetail extends React.Component {
@@ -44,8 +45,8 @@ class DeckDetail extends React.Component {
         </Text>
         <Text>
           {
-            deck.lastQuiz
-              ? deck.lastQuiz
+            deck.timestamp
+              ? formatDate(deck.timestamp) + '. Scored ' + deck.score
               : 'Not answered yet'
           }
         </Text>

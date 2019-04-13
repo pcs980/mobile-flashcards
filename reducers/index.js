@@ -1,23 +1,37 @@
 import {
   STORE_ALL_DECKS,
   ADD_DECK,
+  UPDATE_DECK,
   REMOVE_DECK,
   ADD_CARD,
 } from '../actions';
 
 const decks = (state = {}, action) => {
   switch (action.type) {
-    case STORE_ALL_DECKS:
+    case STORE_ALL_DECKS: {
       return {
         ...state,
         ...action.decks
       };
-    case ADD_DECK:
+    }
+    case ADD_DECK: {
       return {
         ...state,
         [action.deck.title]: action.deck
       };
-    case ADD_CARD:
+    }
+    case UPDATE_DECK: {
+      const {deck} = action;
+      console.log('update last try', deck);
+
+      return {
+        ...state,
+        [deck.title]: {
+          ...deck
+        }
+      };
+    }
+    case ADD_CARD: {
       const {deckId, card} = action;
       const deck = state[deckId];
 
@@ -25,11 +39,13 @@ const decks = (state = {}, action) => {
       return {
         ...state,
         [deckId]: {
-          ...deck,
+          ...deck
         }
       };
-    default:
+    }
+    default: {
       return state;
+    }
   }
 };
 

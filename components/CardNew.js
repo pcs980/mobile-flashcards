@@ -31,20 +31,17 @@ class CardNew extends React.Component {
     const answerError = card.answer.length === 0;
     if (questionError === true || answerError === true) {
       this.setState(() => ({questionError, answerError}));
-      return;
     } else {
-      this.setState({saving: true},
-        () => {
-          console.log({card});
-          addCardToDeck(deckId, card)
-            .then(() => this.props.storeCard(deckId, card))
-            .then(() => this.props.goBack())
-            .catch((error) => {
-              console.error(error);
-              this.setState({saving: false});
-            });
-        }
-      );
+      this.setState({saving: true}, () => {
+        console.log({card});
+        addCardToDeck(deckId, card)
+          .then(() => this.props.storeCard(deckId, card))
+          .then(() => this.props.goBack())
+          .catch((error) => {
+            console.error('adding card error', error);
+            this.setState({saving: false});
+          });
+      });
     }
   };
 
