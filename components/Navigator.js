@@ -7,6 +7,7 @@ import Tabs from './Tabs';
 import Quiz from './Quiz';
 import {primary, white} from '../utils/colors';
 
+// Common NavigationOptions
 const navigationOptions = {
   headerTintColor: white,
   headerStyle: {

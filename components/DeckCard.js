@@ -9,6 +9,7 @@ class DeckCard extends React.Component {
   };
 
   handleClick = (title) => {
+    // Animate when a card is clicked, then open the DeckDetail
     Animated.sequence([
       Animated.timing(this.state.bounceValue, {duration: 100, toValue: 1.04}),
       Animated.spring(this.state.bounceValue, {toValue: 1, speed: 40, bounciness: 20})

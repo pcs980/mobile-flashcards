@@ -32,7 +32,9 @@ class DeckNew extends React.Component {
     if (titleError === true) {
       this.setState(() => ({titleError}));
     } else {
+      // Start saving
       this.setState({saving: true}, () => {
+        // Save deck to the AsyncStorage and Redux store, then open it
         _saveDeck(deck)
           .then(() => this.props.addDeck(deck))
           .then(() => {
@@ -41,7 +43,7 @@ class DeckNew extends React.Component {
           })
           .catch((error) => {
             console.error('save deck error:', error);
-              this.setState({saving: false});
+            this.setState({saving: false});
           });
         });
     }
@@ -69,6 +71,7 @@ class DeckNew extends React.Component {
           )
         }
         {
+          // Hide save button when a saving is in progress
           saving === false
             ? <TextButton onPress={this.submit}>
                 Create Deck

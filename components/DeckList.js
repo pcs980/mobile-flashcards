@@ -21,6 +21,7 @@ class DeckList extends React.Component {
   };
 
   componentDidMount() {
+    // Get decks from AsyncStorage and save them in Redux Store
     _getDecks()
       .then((result) => {
         const decks = JSON.parse(result);

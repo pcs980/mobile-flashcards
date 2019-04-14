@@ -11,7 +11,7 @@ import QuizSummary from './QuizSummary';
 import {updateDeck} from '../actions';
 import {_saveDeck} from '../utils/api';
 import {clearLocalNotifications, setLocalNotification} from '../utils/notification';
-import {lightSecondary} from '../utils/colors';
+import {lightPrimary} from '../utils/colors';
 import styles from '../utils/styles';
 
 class Quiz extends React.Component {
@@ -31,19 +31,23 @@ class Quiz extends React.Component {
     const {deck} = this.props;
 
     if ((this.state.position + 1) === deck.questions.length) {
+      // Show summary when all questions have been answered...
       this.setState((prev) => ({
         correct: prev.correct + (isCorrect === true ? 1 : 0),
         incorrect: prev.incorrect + (isCorrect === true ? 0 : 1),
         show: 'summary',
       }), () => {
+        // After finishing a quiz the score and timestamp are updated
         deck.score = ((this.state.correct / deck.questions.length) * 100).toFixed(1) + '%';
         deck.timestamp = Date.now();
+        // Save in AsyncStorage and Redux store, then schedule a notification to next day
         _saveDeck(deck)
           .then(() => this.props.changeDeck(deck))
           .then(() => clearLocalNotifications().then(setLocalNotification))
           .catch((error) => console.error('Error updating deck', error));
       });
     } else {
+      // ... or show next question
       this.setState((prev) => ({
         correct: prev.correct + (isCorrect === true ? 1 : 0),
         incorrect: prev.incorrect + (isCorrect === true ? 0 : 1),
@@ -88,7 +92,7 @@ class Quiz extends React.Component {
           <Text style={styles.subtitle}>{`Question ${position + 1} of ${deck.questions.length}`}</Text>
           <Progress.Bar
             progress={(position + 1) / deck.questions.length}
-            color={lightSecondary}
+            color={lightPrimary}
             width={null}/>
         </View>
         {

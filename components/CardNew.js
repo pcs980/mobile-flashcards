@@ -19,6 +19,7 @@ class CardNew extends React.Component {
   }
 
   submit = () => {
+    // Exit if a saving call is already running
     if (this.state.saving === true) return;
 
     const deckId = this.props.deckId;
@@ -32,6 +33,8 @@ class CardNew extends React.Component {
     if (questionError === true || answerError === true) {
       this.setState(() => ({questionError, answerError}));
     } else {
+      // Start saving, then add card to deck in AsyncStorage and Redux store
+      // After all go back to DeckDetail
       this.setState({saving: true}, () => {
         console.log({card});
         _addCardToDeck(deckId, card)
@@ -86,6 +89,7 @@ class CardNew extends React.Component {
         }
 
         {
+          // Hide submit button when a saving is in progress
           this.state.saving === false
             ? <TextButton onPress={this.submit} style={{marginTop: 60}}>
                 Submit

@@ -7,6 +7,7 @@ import {alertColor, dangerColor, successColor} from '../utils/colors';
 import styles from '../utils/styles';
 
 export default function QuizSummary({score, correctCount, incorrectCount, restartQuiz, stopQuiz}) {
+  // Change the color according to the score
   let scoreColor = '';
   switch (true) {
     case (score >= 80):
@@ -32,12 +33,12 @@ export default function QuizSummary({score, correctCount, incorrectCount, restar
       <Text style={styles.subtitle}>{correctCount} correct answers.</Text>
       <Text style={styles.subtitle}>{incorrectCount} incorrect answers.</Text>
       <TextButton
+        outline
         style={{marginTop: 20}}
         onPress={restartQuiz}>
         Try again
       </TextButton>
       <TextButton
-        outline
         onPress={stopQuiz}>
         Back to Deck
       </TextButton>

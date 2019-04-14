@@ -27,6 +27,7 @@ class DeckDetail extends React.Component {
   }
 
   confirmDeletion = () => {
+    // Show confirmation dialog before delete a deck
     Alert.alert(
       'Remove deck',
       'Are you sure you want to permanently remove this deck?',
@@ -46,12 +47,14 @@ class DeckDetail extends React.Component {
   delete = () => {
     const {deck, deleteDeck, goHome} = this.props;
 
+    // Delete the deck in AsyncStorage and Redux store, then go to home screen
     _deleteDeck(deck.title)
       .then(() => deleteDeck(deck.title))
       .then(() => goHome());
   };
 
   shouldComponentUpdate(nextProps) {
+    // Check if the deck was deleted
     return nextProps.deck !== undefined;
   }
 
@@ -88,6 +91,7 @@ class DeckDetail extends React.Component {
           Add Card
         </TextButton>
         {
+          // This button is showed only if the deck has at least one card
           cardCount > 0 && (
             <TextButton
               onPress={this.startQuiz}>
