@@ -66,7 +66,7 @@ class CardNew extends React.Component {
         {
           questionError === true && (
             <Text style={styles.textError}>
-              Please, inform a question.
+              Please, inform your new card's question.
             </Text>
           )
         }

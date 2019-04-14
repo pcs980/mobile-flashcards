@@ -71,7 +71,7 @@ class DeckDetail extends React.Component {
           {
             cardCount > 0
               ? deck.questions.length + (deck.questions.length === 1 ? ' card' : ' cards')
-              : 'no cards'
+              : 'No cards.'
           }
         </Text>
         <Text style={[styles.title2, {fontWeight: 'bold', marginTop: 40}]}>
@@ -79,9 +79,10 @@ class DeckDetail extends React.Component {
         </Text>
         <Text>
           {
+            // Check if this deck has already been answered
             deck.timestamp
-              ? formatDate(deck.timestamp) + '. Scored ' + deck.score
-              : 'Not answered yet'
+              ? `${formatDate(deck.timestamp)}. Scored ${deck.score}.`
+              : 'Not answered yet.'
           }
         </Text>
         <TextButton

@@ -66,7 +66,7 @@ class DeckNew extends React.Component {
         {
           titleError === true && (
             <Text style={styles.textError}>
-              Please, inform a title.
+              Please, inform your new deck's title.
             </Text>
           )
         }
